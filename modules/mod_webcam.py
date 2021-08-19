@@ -2,10 +2,11 @@
 import subprocess
 import os
 import base64
+from modules.mod_interface import mod_interface
 
-class mod_webcam():
-    def __init__(self):
-        self.setup_mod()
+class mod_webcam(mod_interface):
+    # def __init__(self):
+    #     self.setup_mod()
 
     def setup_mod(self):
         print(f'Module Setup (mod_webcam) called successfully!')

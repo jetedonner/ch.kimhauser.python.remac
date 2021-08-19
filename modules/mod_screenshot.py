@@ -1,12 +1,13 @@
 # from modInterface import ReMacModInterface
 import subprocess
 import base64
+from modules.mod_interface import mod_interface
 
 OUTPUT_FILE = "sc_tmp.png"
 
-class mod_screenshot():
-    def __init__(self):
-        self.setup_mod()
+class mod_screenshot(mod_interface):
+    # def __init__(self):
+    #     self.setup_mod()
 
     def setup_mod(self):
         print(f'Module Setup (mod_screenshot) called successfully!')

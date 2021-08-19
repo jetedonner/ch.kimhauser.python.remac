@@ -11,6 +11,7 @@ import sqlite3
 import struct
 import subprocess
 import hashlib
+from modules.mod_interface import mod_interface
 
 try:
     xrange
@@ -19,10 +20,10 @@ except NameError:
     # noinspection PyShadowingBuiltins
     xrange = range
 
-class mod_chrome_logins():
+class mod_chrome_logins(mod_interface):
 
-    def __init__(self):
-        self.setup_mod()
+    # def __init__(self):
+    #     self.setup_mod()
 
     def setup_mod(self):
         print(f'Module Setup (mod_chrome_logins) called successfully!')

@@ -4,10 +4,11 @@ import sqlite3
 import json
 import os
 from os.path import expanduser
+from modules.mod_interface import mod_interface
 
-class mod_chrome_history():
-    def __init__(self):
-        self.setup_mod()
+class mod_chrome_history(mod_interface):
+    # def __init__(self):
+    #     self.setup_mod()
 
     def setup_mod(self):
         print(f'Module Setup (mod_chrome_history) called successfully!')

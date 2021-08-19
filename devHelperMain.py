@@ -12,11 +12,12 @@ from modules import mod_shellcmd
 from modules import mod_screenshot
 from modules import mod_webcam
 
-mymod = mod_hello.mod_hello()
+# mymod = mod_hello.mod_hello()
 myreMac_server = reMac_server.reMac_server()
 myreMac_client = reMac_client.reMac_client()
 
 reMacModules = {
+    'helloWorld': mod_hello.mod_hello(),
     'cb': mod_clipboard.mod_clipboard(),
     'ch': mod_chrome_history.mod_chrome_history(),
     'cl': mod_chrome_logins.mod_chrome_logins(),
@@ -53,7 +54,7 @@ def processInput(input):
     elif input == "h":# or input == "help":
         print_help()
     elif input == "helloWorld":  # or input == "help":
-        mymod.run_mod()
+        reMacModules[input].run_mod()
     elif input == "s":# or input == "help":
         myreMac_server.start_server()
     elif input == "c":# or input == "help":

