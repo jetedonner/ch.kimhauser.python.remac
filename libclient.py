@@ -84,6 +84,11 @@ class Message:
         content = self.response
         result = content.get("result")
         action = content.get("action")
+        try:
+            result = json.loads(result)
+        except Exception:
+            pass
+        result = json.dumps(result, indent=4, sort_keys=True)
         print(f"got result: {result}, action: {action}")
         if action == "screenshot":
             img = content.get("img")

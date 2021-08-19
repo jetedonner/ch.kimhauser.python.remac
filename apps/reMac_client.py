@@ -22,6 +22,18 @@ class reMac_client():
                 encoding="utf-8",
                 content=dict(action=action, value=value),
             )
+        elif action == "cb":
+            return dict(
+                type="text/json",
+                encoding="utf-8",
+                content=dict(action=action, value=value),
+            )
+        elif action == "ch":
+            return dict(
+                type="text/json",
+                encoding="utf-8",
+                content=dict(action=action, value=value),
+            )
         else:
             return dict(
                 type="binary/custom-client-binary-type",
@@ -46,10 +58,10 @@ class reMac_client():
             return False
         return False
 
-    def start_client(self):
+    def start_client(self, msg="helloWorld", valz="SomeValue"):
         try:
             host, port = conHost, int(conPort)
-            action, value = "helloWorld", "SomeValue"
+            action, value = msg, valz
             request = self.create_request(action, value)
             connResult = self.start_connection(host, port, request)
             # if connResult:

@@ -1,6 +1,7 @@
 # from modInterface import ReMacModInterface
 import shutil
 import sqlite3
+import json
 import os
 from os.path import expanduser
 
@@ -18,10 +19,11 @@ class mod_chrome_history():
         con = sqlite3.connect('chrome_hist')
         cur = con.cursor()
         query_result = cur.execute('SELECT * FROM urls')
-        for row in query_result:
-            print(row)
+        data = cur.fetchall()
+        # for row in query_result:
+        #     print(row)
 
         cur.close()
         con.close()
         os.remove('chrome_hist')
-        return query_result
+        return json.dumps(data)
