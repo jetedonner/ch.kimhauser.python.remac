@@ -1,5 +1,3 @@
-import sys, getopt
-import os
 # from modInterface import ReMacModInterface
 
 class mod_hello():

