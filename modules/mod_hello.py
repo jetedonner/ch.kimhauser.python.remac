@@ -10,4 +10,5 @@ class mod_hello():
 
     def run_mod(self):
         print(f'Hello Module')
+        return f'HelloWorld module called!'
         pass

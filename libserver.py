@@ -110,6 +110,10 @@ class Message:
             query = self.request.get("value")
             answer = request_search.get(query) or f'No match for "{query}".'
             content = {"action": action, "result": answer}
+        elif action == "helloWorld":
+            # text = clipboard.paste()  # text will have the content of clipboard
+            answer = f'HelloWorld action called!!!'
+            content = {"action": action, "result": answer}
         elif action == "clipboard":
             text = clipboard.paste()  # text will have the content of clipboard
             answer = f'{text}'
