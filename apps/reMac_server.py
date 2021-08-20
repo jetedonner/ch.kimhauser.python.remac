@@ -22,7 +22,7 @@ class reMac_server():
         conn, addr = sock.accept()  # Should be ready to read
         print("accepted connection from", addr)
         conn.setblocking(False)
-        message = reMac_libserver.Message(sel, conn, addr)
+        message = reMac_libserver.reMac_libserver(sel, conn, addr)
         sel.register(conn, selectors.EVENT_READ, data=message)
 
     def start_server(self):

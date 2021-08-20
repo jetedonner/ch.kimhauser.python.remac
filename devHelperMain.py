@@ -50,11 +50,9 @@ def print_help():
     print(f'| -dev, -d\t\t\tStart developer mode                                 |')
     print(f'#========================================================================#')
 
-global clientStarted
-clientStarted = False
 
 def processInput(input):
-    # global clientStarted
+
     # if clientStarted == True:
     #     myreMac_client.start_client(input)
     #     return
@@ -69,6 +67,7 @@ def processInput(input):
         myreMac_server.start_server()
     elif input == "c":# or input == "help":
         myreMac_client.start_client()
+        global clientStarted
         clientStarted = True
     elif input == "kl":# or input == "help":
         reMacModules[input].run_mod()

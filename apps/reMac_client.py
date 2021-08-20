@@ -54,7 +54,7 @@ class reMac_client():
         try:
             sock.connect_ex(addr)
             events = selectors.EVENT_READ | selectors.EVENT_WRITE
-            message = reMac_libclient.Message(sel, sock, addr, request)
+            message = reMac_libclient.reMac_libclient(sel, sock, addr, request)
             sel.register(sock, events, data=message)
             return True
         except socket.error as exc:
