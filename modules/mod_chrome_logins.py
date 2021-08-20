@@ -1,4 +1,3 @@
-# from modInterface import ReMacModInterface
 import os
 from os.path import expanduser
 import base64
@@ -20,11 +19,10 @@ except NameError:
     # noinspection PyShadowingBuiltins
     xrange = range
 
-class mod_chrome_logins(mod_interface):
 
+class mod_chrome_logins(mod_interface):
     def setup_mod(self):
         print(f'Module Setup (mod_chrome_logins) called successfully!')
-        pass
 
     def pbkdf2_bin(self, password, salt, iterations, keylen=16):
         # Thanks to mitsuhiko for this function:
