@@ -1,5 +1,3 @@
-import sys, getopt
-import os
 
 class mod_interface:
     def __init__(self):

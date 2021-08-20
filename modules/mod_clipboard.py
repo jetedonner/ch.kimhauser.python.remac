@@ -3,8 +3,6 @@ from modules.mod_interface import mod_interface
 # from modInterface import ReMacModInterface
 
 class mod_clipboard(mod_interface):
-    # def __init__(self):
-    #     self.setup_mod()
 
     def setup_mod(self):
         print(f'Module Setup (mod_clipboard) called successfully!')

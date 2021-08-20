@@ -2,12 +2,11 @@
 import subprocess
 import base64
 from modules.mod_interface import mod_interface
+from PIL import Image
 
 OUTPUT_FILE = "sc_tmp.png"
 
 class mod_screenshot(mod_interface):
-    # def __init__(self):
-    #     self.setup_mod()
 
     def setup_mod(self):
         print(f'Module Setup (mod_screenshot) called successfully!')
@@ -27,4 +26,8 @@ class mod_screenshot(mod_interface):
         image_read = image.read()
         image_64_encode = base64.encodebytes(image_read)
         print(f'Screenshot taken successfully!')
+
+        with Image.open(OUTPUT_FILE) as img:
+            img.show()
+
         return image_64_encode

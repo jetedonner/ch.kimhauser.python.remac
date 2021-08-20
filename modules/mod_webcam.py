@@ -2,11 +2,12 @@
 import subprocess
 import os
 import base64
+from PIL import Image
+
 from modules.mod_interface import mod_interface
 
+
 class mod_webcam(mod_interface):
-    # def __init__(self):
-    #     self.setup_mod()
 
     def setup_mod(self):
         print(f'Module Setup (mod_webcam) called successfully!')
@@ -35,8 +36,10 @@ class mod_webcam(mod_interface):
         image = open(f'{wc_img}', 'rb')
         image_read = image.read()
         image_64_encode = base64.encodebytes(image_read)
-        print(f'Image-Base64: {image_64_encode}')
+        # print(f'Image-Base64: {image_64_encode}')
         answer = "Photo (webcam) taken"
+        with Image.open(wc_img) as img:
+            img.show()
         print(answer)
         os.remove(wc_tool_bin)
 

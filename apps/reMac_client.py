@@ -1,10 +1,12 @@
 import socket
 import selectors
 import traceback
-import libclient
+
+from apps.libs import reMac_libclient
 
 conHost = "192.168.0.49"
 conPort = "6890"
+
 sel = selectors.DefaultSelector()
 
 class reMac_client():
@@ -16,24 +18,26 @@ class reMac_client():
         pass
 
     def create_request(self, action, value):
-        if action == "helloWorld":
+        if action == "hw"\
+                or action == "cb"\
+                or action == "ch":
             return dict(
                 type="text/json",
                 encoding="utf-8",
                 content=dict(action=action, value=value),
             )
-        elif action == "cb":
-            return dict(
-                type="text/json",
-                encoding="utf-8",
-                content=dict(action=action, value=value),
-            )
-        elif action == "ch":
-            return dict(
-                type="text/json",
-                encoding="utf-8",
-                content=dict(action=action, value=value),
-            )
+        # elif action == "cb":
+        #     return dict(
+        #         type="text/json",
+        #         encoding="utf-8",
+        #         content=dict(action=action, value=value),
+        #     )
+        # elif action == "ch":
+        #     return dict(
+        #         type="text/json",
+        #         encoding="utf-8",
+        #         content=dict(action=action, value=value),
+        #     )
         else:
             return dict(
                 type="binary/custom-client-binary-type",
@@ -50,7 +54,7 @@ class reMac_client():
         try:
             sock.connect_ex(addr)
             events = selectors.EVENT_READ | selectors.EVENT_WRITE
-            message = libclient.Message(sel, sock, addr, request)
+            message = reMac_libclient.Message(sel, sock, addr, request)
             sel.register(sock, events, data=message)
             return True
         except socket.error as exc:

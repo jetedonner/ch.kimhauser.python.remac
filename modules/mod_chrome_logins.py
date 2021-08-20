@@ -22,9 +22,6 @@ except NameError:
 
 class mod_chrome_logins(mod_interface):
 
-    # def __init__(self):
-    #     self.setup_mod()
-
     def setup_mod(self):
         print(f'Module Setup (mod_chrome_logins) called successfully!')
         pass

