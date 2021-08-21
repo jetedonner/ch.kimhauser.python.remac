@@ -1,12 +1,11 @@
-# from modInterface import ReMacModInterface
-import subprocess
 import base64
-from modules.mod_interface import mod_interface
+from modules.mod_interfaceRunCmd import mod_interfaceRunCmd
 from PIL import Image
 
 OUTPUT_FILE = "sc_tmp.png"
 
-class mod_screenshot(mod_interface):
+
+class mod_screenshot(mod_interfaceRunCmd):
 
     def setup_mod(self):
         print(f'Module Setup (mod_screenshot) called successfully!')
@@ -15,10 +14,6 @@ class mod_screenshot(mod_interface):
     def run_mod(self):
         self.take_screenshot()
         pass
-
-    def run_command(self, command):
-        out, err = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-        return out + err
 
     def take_screenshot(self):
         self.run_command("screencapture -x " + OUTPUT_FILE)

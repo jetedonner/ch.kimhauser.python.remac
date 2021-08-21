@@ -1,5 +1,3 @@
-# from modInterface import ReMacModInterface
-# import mod_interface
 from modules.mod_interface import mod_interface
 # from keylogger import Keylogger
 # from keylogger import Keylogger
@@ -19,4 +17,3 @@ class mod_keylogger(mod_interface):
         # keyloggerVar = Keylogger(interval=60, report_method="file")
         # keyloggerVar.start()
         return f'mod_keylogger module called!'
-        pass

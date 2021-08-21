@@ -1,6 +1,6 @@
 import subprocess
 from modules.mod_interface import mod_interface
-# from modInterface import ReMacModInterface
+
 
 class mod_shellcmd(mod_interface):
 
@@ -20,4 +20,3 @@ class mod_shellcmd(mod_interface):
             decrypted = "Error sending shell command!"
 
         return decrypted
-        # pass

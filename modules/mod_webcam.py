@@ -4,18 +4,18 @@ import os
 import base64
 from PIL import Image
 
-from modules.mod_interface import mod_interface
+from modules.mod_interfaceRunCmd import mod_interfaceRunCmd
 
 
-class mod_webcam(mod_interface):
+class mod_webcam(mod_interfaceRunCmd):
 
     def setup_mod(self):
         print(f'Module Setup (mod_webcam) called successfully!')
         pass
 
-    def run_command(self, command):
-        out, err = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-        return out + err
+    # def run_command(self, command):
+    #     out, err = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+    #     return out + err
 
     def run_mod(self):
         print(f'Webcam Module')

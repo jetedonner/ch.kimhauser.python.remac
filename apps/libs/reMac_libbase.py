@@ -3,7 +3,6 @@ import selectors
 import json
 import io
 import struct
-import base64
 
 
 class reMac_libbase():
