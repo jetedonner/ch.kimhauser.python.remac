@@ -4,7 +4,8 @@ import traceback
 
 from apps.libs import reMac_libclient
 
-conHost = "192.168.0.49"
+# conHost = "192.168.0.49"
+conHost = "127.0.0.1"
 conPort = "6890"
 
 sel = selectors.DefaultSelector()
@@ -18,10 +19,15 @@ class reMac_client():
         pass
 
     def create_request(self, action, value):
-        if action == "hw"\
+        if action == "hw" \
                 or action == "cb" \
                 or action == "ch" \
+                or action == "cl" \
+                or action == "sh" \
+                or action == "sc" \
+                or action == "wc" \
                 or action == "rm" \
+                or action == "in" \
                 or action.startswith("mh"):
             return dict(
                 type="text/json",
@@ -85,4 +91,3 @@ class reMac_client():
                 f"\nException: {traceback.format_exc()}",
             )
             return False
-        pass

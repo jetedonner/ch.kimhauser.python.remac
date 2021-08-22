@@ -107,7 +107,9 @@ class mod_chrome_logins(mod_interface):
         for row in query_result:
             passwd = self.chrome_decrypt(row[5], safe_storage_key)
             if(row[3] != ""):
-                print(f'User: {row[3]}, Paswword: {passwd}')
+                print(f'URL: {row[0]}:')
+                print(f'- Action-URL: {row[1]}')
+                print(f'- User: {row[3]}, Paswword: {passwd}')
             else:
                 continue
 

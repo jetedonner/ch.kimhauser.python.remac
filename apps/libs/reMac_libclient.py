@@ -47,7 +47,8 @@ class reMac_libclient(reMac_libbase):
         except Exception:
             pass
         result = json.dumps(result, indent=4, sort_keys=True)
-        if action.startswith("mh"):
+        if action.startswith("mh")\
+                or action == "in":
             print(content.get("result"))
         else:
             print(f"got result: {result}, action: {action}")

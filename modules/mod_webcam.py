@@ -38,9 +38,8 @@ class mod_webcam(mod_interfaceRunCmd):
         image_64_encode = base64.encodebytes(image_read)
         # print(f'Image-Base64: {image_64_encode}')
         answer = "Photo (webcam) taken"
-        with Image.open(wc_img) as img:
-            img.show()
+        # with Image.open(wc_img) as img:
+        #     img.show()
         print(answer)
         os.remove(wc_tool_bin)
-
-        pass
+        return image_64_encode

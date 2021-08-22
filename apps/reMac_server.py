@@ -7,7 +7,8 @@ from pynput import keyboard
 
 from apps.libs import reMac_libserver
 
-conHost = "192.168.0.49"
+# conHost = "192.168.0.49"
+conHost = "127.0.0.1"
 conPort = "6890"
 
 sel = selectors.DefaultSelector()
@@ -31,6 +32,8 @@ class reMac_server():
         sel.register(conn, selectors.EVENT_READ, data=message)
 
     def on_press(self, key):
+        if key.char == None:
+            return
         if key == keyboard.Key.esc or key.char == 'q':
             # Stop listener
             self.doExit = True
@@ -55,13 +58,13 @@ class reMac_server():
         lsock.setblocking(False)
         sel.register(lsock, selectors.EVENT_READ, data=None)
 
-        with keyboard.Listener(on_press=self.on_press) as listener:
-            listener.join()
+        # with keyboard.Listener(on_press=self.on_press) as listener:
+        #     listener.join()
 
         try:
             while True:
-                if self.doExit:
-                    break
+                # if self.doExit:
+                #     break
                 events = sel.select(timeout=None)
                 for key, mask in events:
                     if key.data is None:
