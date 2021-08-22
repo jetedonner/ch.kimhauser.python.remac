@@ -47,7 +47,10 @@ class reMac_libclient(reMac_libbase):
         except Exception:
             pass
         result = json.dumps(result, indent=4, sort_keys=True)
-        print(f"got result: {result}, action: {action}")
+        if action.startswith("mh"):
+            print(content.get("result"))
+        else:
+            print(f"got result: {result}, action: {action}")
 
     def _process_response_binary_content(self):
         content = self.response

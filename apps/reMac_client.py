@@ -19,25 +19,15 @@ class reMac_client():
 
     def create_request(self, action, value):
         if action == "hw"\
-                or action == "cb"\
-                or action == "ch":
+                or action == "cb" \
+                or action == "ch" \
+                or action == "rm" \
+                or action.startswith("mh"):
             return dict(
                 type="text/json",
                 encoding="utf-8",
                 content=dict(action=action, value=value),
             )
-        # elif action == "cb":
-        #     return dict(
-        #         type="text/json",
-        #         encoding="utf-8",
-        #         content=dict(action=action, value=value),
-        #     )
-        # elif action == "ch":
-        #     return dict(
-        #         type="text/json",
-        #         encoding="utf-8",
-        #         content=dict(action=action, value=value),
-        #     )
         else:
             return dict(
                 type="binary/custom-client-binary-type",
