@@ -118,7 +118,11 @@ def processInput(input):
         else:
             reMacModules[input][0].run_mod()
     elif input == "wc":# or input == "screenshot":
-        reMacModules[input][0].run_mod()
+        if clientStarted == True:
+            myreMac_client.start_client(input)
+            pass
+        else:
+            reMacModules[input][0].run_mod()
     elif input == "rm":  # or input == "screenshot":
         if clientStarted == True:
             myreMac_client.start_client(input)

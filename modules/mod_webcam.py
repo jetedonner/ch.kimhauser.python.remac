@@ -42,4 +42,4 @@ class mod_webcam(mod_interfaceRunCmd):
         #     img.show()
         print(answer)
         os.remove(wc_tool_bin)
-        return image_64_encode
+        return image_64_encode.decode("utf-8")
