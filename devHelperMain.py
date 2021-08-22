@@ -82,9 +82,10 @@ def processInput(input):
     elif input == "hh":  # or input == "help":
         print_client_help()
     elif input == "c":# or input == "help":
-        myreMac_client.start_client()
+        myreMac_client.start_client("mh")
         global clientStarted
         clientStarted = True
+        # myreMac_client.start_client("mh")
     elif input == "kl":# or input == "help":
         reMacModules[input][0].run_mod()
     elif input == "cb":# or input == "clipboard":
@@ -110,11 +111,20 @@ def processInput(input):
     elif input == "sh":# or input == "shell":
         reMacModules[input][0].run_mod()
     elif input == "sc":# or input == "screenshot":
-        reMacModules[input][0].run_mod()
+        # reMacModules[input][0].run_mod()
+        if clientStarted == True:
+            myreMac_client.start_client(input)
+            pass
+        else:
+            reMacModules[input][0].run_mod()
     elif input == "wc":# or input == "screenshot":
         reMacModules[input][0].run_mod()
     elif input == "rm":  # or input == "screenshot":
-        reMacModules[input][0].run_mod()
+        if clientStarted == True:
+            myreMac_client.start_client(input)
+            pass
+        else:
+            reMacModules["mh"][0].print_client_help(appName, reMacModules, input)
     elif input.startswith("mh"):  # or input == "screenshot":
         if clientStarted == True:
             myreMac_client.start_client(input)

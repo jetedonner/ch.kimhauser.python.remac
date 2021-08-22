@@ -11,7 +11,7 @@ class mod_screenshot(mod_interfaceRunCmd):
         print(f'Module Setup (mod_screenshot) called successfully!')
         pass
 
-    def run_mod(self):
+    def run_mod(self, cmd = ""):
         return self.take_screenshot()
 
     def take_screenshot(self):

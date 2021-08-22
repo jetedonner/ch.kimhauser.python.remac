@@ -12,7 +12,7 @@ class mod_keylogger(mod_interface):
         print(f'Module Setup (mod_keylogger) called successfully!')
         pass
 
-    def run_mod(self):
+    def run_mod(self, cmd = ""):
         print(f'mod_keylogger Module')
         # keyloggerVar = Keylogger(interval=60, report_method="file")
         # keyloggerVar.start()

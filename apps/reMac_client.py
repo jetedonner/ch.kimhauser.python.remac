@@ -58,7 +58,7 @@ class reMac_client():
             return False
         return False
 
-    def start_client(self, msg="helloWorld", valz="SomeValue"):
+    def start_client(self, msg="mh", valz=""):
         try:
             host, port = conHost, int(conPort)
             action, value = msg, valz

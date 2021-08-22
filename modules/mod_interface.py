@@ -5,5 +5,5 @@ class mod_interface:
     def setup_mod(self):
         pass
 
-    def run_mod(self):
+    def run_mod(self, cmd = ""):
         pass

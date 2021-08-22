@@ -17,7 +17,7 @@ class mod_webcam(mod_interfaceRunCmd):
     #     out, err = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
     #     return out + err
 
-    def run_mod(self):
+    def run_mod(self, cmd = ""):
         print(f'Webcam Module')
         content_encoding = "utf-8"
         cur_dir = os.path.abspath(".")

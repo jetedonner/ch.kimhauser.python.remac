@@ -1,4 +1,6 @@
 import json
+import os
+import base64
 from apps.libs.reMac_libbase import reMac_libbase
 
 
@@ -50,6 +52,15 @@ class reMac_libclient(reMac_libbase):
         if action.startswith("mh")\
                 or action == "in":
             print(content.get("result"))
+        elif action.startswith("rm"):
+            print(content.get("result"))
+            cur_dir = os.path.abspath(".")
+            base64ToolContent = content.get("result")
+            base64ToolContent = base64ToolContent.encode()
+            audio_out = f"{cur_dir}/tmp/audio.mp3"
+            # wc_img = "wc_tmp.png"
+            with open(audio_out, "wb") as output_file:
+                output_file.write(base64.b64decode(base64ToolContent))
         else:
             print(f"got result: {result}, action: {action}")
 

@@ -84,7 +84,7 @@ class reMac_libserver(reMac_libbase):
                 or input == "sh" \
                 or input == "sc" \
                 or input == "wc" \
-                or input == "rm" \
+                or input.startswith("rm") \
                 or input == "in" \
                 or input == "d":  # or input == "help":
             return reMacModules[input][0].run_mod()

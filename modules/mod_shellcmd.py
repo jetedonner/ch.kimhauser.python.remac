@@ -8,7 +8,7 @@ class mod_shellcmd(mod_interface):
         print(f'Module Setup (mod_shellcmd) called successfully!')
         pass
 
-    def run_mod(self):
+    def run_mod(self, cmd = ""):
         cmd2send = input("Enter shell command to send: ")
         print(f'Sending command: "{cmd2send}" to shell ...')
         try:
