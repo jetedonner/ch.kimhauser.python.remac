@@ -22,4 +22,4 @@ class mod_screenshot(mod_interfaceRunCmd):
         print(f'Screenshot taken successfully!')
         # with Image.open(OUTPUT_FILE) as img:
         #     img.show()
-        return image_64_encode
+        return image_64_encode.decode("utf-8")
