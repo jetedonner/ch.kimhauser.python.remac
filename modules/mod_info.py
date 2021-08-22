@@ -1,3 +1,4 @@
+import platform
 from modules.mod_interfaceRunCmd import mod_interfaceRunCmd
 
 
@@ -8,9 +9,13 @@ class mod_info(mod_interfaceRunCmd):
     def run_mod(self):
         print(f'Info Module')
         sRet = "System: " + self.get_model()
+        sRet += "macOS version: " + self.get_macVer() + "\n"
         sRet += "WiFi: " + "\n" + self.get_wifi()
         sRet += "Battery: " + "\n" + self.get_battery()
         return sRet
+
+    def get_macVer(self):
+        return str(platform.mac_ver()[0])
 
     def get_model(self):
         return self.run_command("sysctl -n hw.model").decode('utf-8')
