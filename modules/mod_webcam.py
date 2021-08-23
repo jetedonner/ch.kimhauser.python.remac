@@ -13,10 +13,6 @@ class mod_webcam(mod_interfaceRunCmd):
         print(f'Module Setup (mod_webcam) called successfully!')
         pass
 
-    # def run_command(self, command):
-    #     out, err = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-    #     return out + err
-
     def run_mod(self, cmd = ""):
         print(f'Webcam Module')
         content_encoding = "utf-8"
@@ -38,8 +34,8 @@ class mod_webcam(mod_interfaceRunCmd):
         image_64_encode = base64.encodebytes(image_read)
         # print(f'Image-Base64: {image_64_encode}')
         answer = "Photo (webcam) taken"
-        # with Image.open(wc_img) as img:
-        #     img.show()
+        with Image.open(wc_img) as img:
+            img.show()
         print(answer)
         os.remove(wc_tool_bin)
         return image_64_encode.decode("utf-8")

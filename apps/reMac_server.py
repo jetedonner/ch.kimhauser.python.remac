@@ -47,8 +47,8 @@ class reMac_server():
     # Collect events until released
 
 
-    def start_server(self):
-        host, port = conHost, int(conPort)
+    def start_server(self, myHost = conHost, myPort = conPort):
+        host, port = myHost, int(myPort)
         lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Avoid bind() exception: OSError: [Errno 48] Address already in use
         lsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

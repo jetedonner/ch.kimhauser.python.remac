@@ -58,9 +58,12 @@ class reMac_client():
             return False
         return False
 
-    def start_client(self, msg="mh", valz=""):
+    def send2_client(self, msg="mh", valz="", myHost=conHost, myPort=conPort):
+        self.start_client(myHost, myPort, msg, valz)
+
+    def start_client(self, myHost = conHost, myPort = conPort, msg="mh", valz=""):
         try:
-            host, port = conHost, int(conPort)
+            host, port = myHost, int(myPort)
             action, value = msg, valz
             request = self.create_request(action, value)
             connResult = self.start_connection(host, port, request)
