@@ -15,8 +15,8 @@ class mod_info(mod_interfaceRunCmd):
         sRet += f'| Info for server - IP: {local_ip}\n'
         sRet += f"| System: " + self.get_model()
         sRet += f"| macOS version: " + self.get_macVer() + "\n"
-        sRet += f"| WiFi: " + self.get_wifi()
-        sRet += f"| Battery: " + self.get_battery()
+        sRet += f"| WiFi: \n" + self.get_wifi()
+        sRet += f" Battery: " + self.get_battery()
         sRet += f'#========================================================================#\n'
         return sRet
 
@@ -28,7 +28,9 @@ class mod_info(mod_interfaceRunCmd):
 
     def get_wifi(self):
         command = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I" # | grep -w SSID"
-        return self.run_command(command)#.decode('utf-8')#.replace("SSID: ", "").strip()
+        sRet = self.run_command(command).replace("\n", "\n|")
+        return "|" + sRet #self.run_command(command)#.decode('utf-8')#.replace("SSID: ", "").strip()
 
     def get_battery(self):
-        return self.run_command("pmset -g batt")#.decode("utf-8")# | egrep \"([0-9]+\\%).*\" -o | cut -f1 -d\';\'")
+        sRet = self.run_command("pmset -g batt").replace("\n", "\n|")
+        return sRet #.decode("utf-8")# | egrep \"([0-9]+\\%).*\" -o | cut -f1 -d\';\'")

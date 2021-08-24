@@ -116,7 +116,7 @@ try:
         for key, mask in events:
             message = key.data
             try:
-s                message.process_events(mask)
+                message.process_events(mask)
             except Exception:
                 print(
                     "main: error: exception for",

