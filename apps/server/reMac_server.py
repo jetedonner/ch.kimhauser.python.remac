@@ -5,7 +5,7 @@ import sys
 # import keyboard
 from pynput import keyboard
 
-from apps.libs import reMac_libserver
+from apps.server.libs import reMac_libserver
 
 # conHost = "192.168.0.49"
 conHost = "127.0.0.1"

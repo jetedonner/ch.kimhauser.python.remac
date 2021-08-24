@@ -2,7 +2,7 @@ import pyaudio
 import wave
 import base64
 
-from modules.mod_interfaceRunCmd import mod_interfaceRunCmd
+from apps.server.modules.mod_interfaceRunCmd import mod_interfaceRunCmd
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16

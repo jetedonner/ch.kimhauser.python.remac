@@ -1,5 +1,5 @@
 import socket
-from modules.mod_interface import mod_interface
+from apps.server.modules.mod_interface import mod_interface
 
 
 class mod_modHelp(mod_interface):

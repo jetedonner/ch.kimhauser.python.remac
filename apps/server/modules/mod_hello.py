@@ -1,4 +1,4 @@
-from modules.mod_interface import mod_interface
+from apps.server.modules.mod_interface import mod_interface
 
 
 class mod_hello(mod_interface):

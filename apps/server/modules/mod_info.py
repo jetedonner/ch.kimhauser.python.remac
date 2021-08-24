@@ -1,6 +1,6 @@
 import platform
 import socket
-from modules.mod_interfaceRunCmd import mod_interfaceRunCmd
+from apps.server.modules.mod_interfaceRunCmd import mod_interfaceRunCmd
 
 
 class mod_info(mod_interfaceRunCmd):

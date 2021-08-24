@@ -1,5 +1,5 @@
 import base64
-from modules.mod_interfaceRunCmd import mod_interfaceRunCmd
+from apps.server.modules.mod_interfaceRunCmd import mod_interfaceRunCmd
 from PIL import Image
 
 OUTPUT_FILE = "sc_tmp.png"

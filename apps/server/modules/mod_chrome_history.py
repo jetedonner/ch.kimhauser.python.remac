@@ -3,7 +3,7 @@ import sqlite3
 import json
 import os
 from os.path import expanduser
-from modules.mod_interface import mod_interface
+from apps.server.modules.mod_interface import mod_interface
 
 
 class mod_chrome_history(mod_interface):

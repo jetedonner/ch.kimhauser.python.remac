@@ -1,10 +1,9 @@
 # from modInterface import ReMacModInterface
-import subprocess
 import os
 import base64
 from PIL import Image
 
-from modules.mod_interfaceRunCmd import mod_interfaceRunCmd
+from apps.server.modules.mod_interfaceRunCmd import mod_interfaceRunCmd
 
 
 class mod_webcam(mod_interfaceRunCmd):
@@ -16,13 +15,13 @@ class mod_webcam(mod_interfaceRunCmd):
     def run_mod(self, cmd = ""):
         print(f'Webcam Module')
         content_encoding = "utf-8"
-        cur_dir = os.path.abspath(".")
+        cur_dir = os.path.abspath("")
         print(f'{cur_dir}')
         base64ToolFile = open(f'{cur_dir}/tools/wc_tool', 'rb')
         base64ToolContent = base64ToolFile.read()
 
         wc_tool_bin = f"{cur_dir}/tools/.wc_tool_bin"
-        wc_img = "wc_tmp.png"
+        wc_img = "tmp/wc_tmp.png"
         with open(wc_tool_bin, "wb") as output_file:
             output_file.write(base64.b64decode(base64ToolContent))
             self.run_command(f"chmod a+x {wc_tool_bin}")
@@ -38,4 +37,5 @@ class mod_webcam(mod_interfaceRunCmd):
             img.show()
         print(answer)
         os.remove(wc_tool_bin)
+        os.remove(wc_img)
         return image_64_encode.decode("utf-8")

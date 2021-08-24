@@ -2,7 +2,7 @@ import socket
 import selectors
 import traceback
 
-from apps.libs import reMac_libclient
+from apps.client.libs import reMac_libclient
 
 # conHost = "192.168.0.49"
 conHost = "127.0.0.1"

